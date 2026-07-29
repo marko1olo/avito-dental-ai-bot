@@ -1,0 +1,82 @@
+{
+  "_": "Схема capture/selectors.json. Сам selectors.json заполняется по разведке ЖИВОЙ страницы сообщений Авито и в git не коммитится вслепую — угаданные селекторы хуже отсутствующих, потому что молча читают ноль непрочитанных.",
+  "_why_data_not_code": "Авито меняет вёрстку без предупреждения. Правка одного JSON силами администратора дешевле правки модуля и не требует релиза. Отсутствие файла даёт внятную ошибку на старте, а не тихий ноль в списке чатов.",
+  "_how_to_fill": "Открыть https://www.avito.ru/profile/messenger персистентным профилем с живой сессией, снять структуру. Текст переписки в файл не попадает — только селекторы.",
+
+  "required": {
+    "chatList": {
+      "type": "css",
+      "meaning": "контейнер списка чатов. По нему checkSession отличает отрендеренный мессенджер от стены логина",
+      "example": "[data-marker='channels-list']"
+    },
+    "chatItem": {
+      "type": "css",
+      "meaning": "один элемент списка чатов, относительно chatList",
+      "example": "[data-marker='channel-preview']"
+    },
+    "unreadMark": {
+      "type": "css",
+      "meaning": "признак непрочитанного внутри chatItem: бейдж, счётчик или класс. Единственный способ понять, что появилось новое — у Авито нет вебхуков",
+      "example": "[data-marker='unread-badge']"
+    },
+    "messageBubble": {
+      "type": "css",
+      "meaning": "пузырь одного сообщения в открытом диалоге",
+      "example": "[data-marker='message']"
+    },
+    "input": {
+      "type": "css",
+      "meaning": "поле ввода ответа. Обязательно указать inputKind ниже: textarea и contenteditable набираются по-разному",
+      "example": "textarea[data-marker='message-input']"
+    },
+    "sendButton": {
+      "type": "css",
+      "meaning": "кнопка отправки",
+      "example": "[data-marker='send-button']"
+    }
+  },
+
+  "optional": {
+    "counterpartyName": {
+      "meaning": "имя собеседника внутри chatItem. Нужно только для черновика администратору, чтобы он понимал, кто пишет",
+      "fallback": "если селектора нет, в черновике будет id чата"
+    },
+    "lastPreview": {
+      "meaning": "превью последнего сообщения внутри chatItem"
+    },
+    "outgoingMark": {
+      "meaning": "как отличить ИСХОДЯЩЕЕ сообщение от входящего: класс на пузыре, отдельный контейнер, выравнивание",
+      "critical": "без этого бот не отличит свои сообщения от чужих и начнёт отвечать сам себе. Если признака нет — заполнить incomingMark вместо этого"
+    },
+    "incomingMark": {
+      "meaning": "обратная сторона outgoingMark, если Авито помечает входящие, а не исходящие"
+    },
+    "messageId": {
+      "meaning": "стабильный id сообщения в DOM (data-id, key)",
+      "fallback": "если id нет — дедупликация идёт по sha256(chat_id + автор + текст + время), см. brain/store"
+    },
+    "messageTime": {
+      "meaning": "время сообщения внутри пузыря"
+    },
+    "chatIdFromUrl": {
+      "type": "regexp",
+      "meaning": "как выдрать id чата из URL при открытом диалоге",
+      "example": "/messenger/channel/([A-Za-z0-9_-]+)"
+    }
+  },
+
+  "flags": {
+    "inputKind": {
+      "values": ["textarea", "contenteditable"],
+      "meaning": "textarea заполняется fill(), contenteditable — только type() по клавишам"
+    },
+    "sendByEnter": {
+      "values": [true, false],
+      "meaning": "работает ли Enter вместо клика по кнопке. Enter надёжнее: кнопка часто перерисовывается"
+    },
+    "chatListPagination": {
+      "values": ["none", "infinite-scroll", "pages"],
+      "meaning": "как добираться до чатов ниже первого экрана"
+    }
+  }
+}
