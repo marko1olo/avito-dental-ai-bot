@@ -11,6 +11,12 @@
 [![Tests: 425 Passed](https://img.shields.io/badge/Tests-425%2F425%20Passed-brightgreen?style=for-the-badge&logo=pytest&logoColor=white)](brain/tests)
 [![Architecture: SQLite WAL](https://img.shields.io/badge/Storage-SQLite%20WAL-lightgrey?style=for-the-badge&logo=sqlite&logoColor=white)](brain/store)
 
+<br />
+
+<img src="assets/banner.png" alt="Avito Dental AI Assistant Hero Banner" width="100%" style="border-radius: 10px;" />
+
+<br />
+
 [Features](#-key-features) • [Architecture](#-architecture) • [Security & Privacy](#-security--152-fl-compliance) • [Quick Start](#-quick-start) • [Configuration](#-configuration-guide) • [Tests](#-testing) • [Deployment](#-production-deployment)
 
 </div>
