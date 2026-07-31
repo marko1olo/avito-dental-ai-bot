@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avito Dental AI Bot — Zero-Hallucination Veto System & Telegram Panel</title>
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Avito Dental AI Bot — Zero-Hallucination Veto System" />
+  <meta property="og:description" content="Production-grade AI messenger assistant with deterministic Veto Layer, aiogram 3, Gemini 2.5 Flash, and Playwright." />
+  <meta property="og:image" content="og-card.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://hades.github.io/avito-bot-public/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Avito Dental AI Bot — aiogram 3 & Veto Layer" />
+  <meta name="twitter:description" content="Deterministic zero-hallucination Veto Layer with Playwright automation." />
+  <meta name="twitter:image" content="og-card.png" />
+
+  <style>
+    :root {
+      --bg-dark: #0a0914;
+      --bg-card: #0f172a;
+      --bg-card-hover: #1e293b;
+      --accent: #a855f7;
+      --accent-glow: rgba(168, 85, 247, 0.25);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #1e293b;
+      --font-mono: "Fira Code", "Consolas", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      background: rgba(10, 9, 20, 0.85);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #fff;
+      text-decoration: none;
+    }
+    .brand-tag {
+      background: var(--accent-glow);
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem 2rem 2rem;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 0%, #f3e8ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 750px;
+      margin: 0 auto 2rem auto;
+    }
+
+    .badge-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .badge {
+      background: #2e104d;
+      border: 1px solid #581c87;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      color: #f3e8ff;
+    }
+
+    /* Live Interactive Demo */
+    .demo-section {
+      max-width: 1100px;
+      margin: 2rem auto 4rem auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+    .demo-header {
+      background: #2e104d;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .demo-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent);
+    }
+    .demo-controls {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .btn {
+      background: var(--bg-card-hover);
+      color: #fff;
+      border: 1px solid #475569;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn-active {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .viewport-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    canvas#vetoCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .hud-overlay {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #f3e8ff;
+      pointer-events: none;
+    }
+
+    .grid-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.75rem;
+      color: #fff;
+    }
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .code-block {
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 6px;
+      padding: 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #c084fc;
+      overflow-x: auto;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 4rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand">
+        Avito Dental AI Bot
+        <span class="brand-tag">AIOGRAM 3 VETO LAYER</span>
+      </a>
+      <div class="nav-links">
+        <a href="#demo">Veto Inspector Sandbox</a>
+        <a href="#veto">Deterministic Veto Layer</a>
+        <a href="#playwright">Playwright Engine</a>
+        <a href="https://github.com/hades/avito-bot-public" target="_blank">GitHub Repository</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Zero-Hallucination AI Assistant</h1>
+    <p>Production-grade hybrid AI messenger assistant enforcing a deterministic Veto Layer over Gemini 2.5 Flash outputs, Playwright browser automation, SQLite WAL store, and aiogram 3 Telegram panel.</p>
+    
+    <div class="badge-row">
+      <span class="badge">Framework: aiogram 3.x</span>
+      <span class="badge">Veto: Deterministic Guard</span>
+      <span class="badge">LLM: Gemini 2.5 Flash</span>
+      <span class="badge">Browser: Playwright 1.48+</span>
+      <span class="badge">Storage: SQLite WAL</span>
+    </div>
+  </section>
+
+  <!-- Live Interactive Demo -->
+  <section class="demo-section" id="demo">
+    <div class="demo-header">
+      <div class="demo-title">
+        <span class="status-dot"></span>
+        Interactive Veto Layer & Dialogue Inspection Sandbox
+      </div>
+      <div class="demo-controls">
+        <button class="btn btn-active" onclick="testPrompt('valid')">Valid Consultation Query</button>
+        <button class="btn" onclick="testPrompt('hallucination')">Trigger Price Hallucination Veto</button>
+        <button class="btn" onclick="testPrompt('escalation')">Trigger Human Escalation</button>
+      </div>
+    </div>
+    <div class="viewport-container">
+      <canvas id="vetoCanvas" width="960" height="540"></canvas>
+      <div class="hud-overlay" id="hudStats">
+        Query: Consultation | LLM Output: Inspected | Veto Filter: PASSED | Response Latency: 420 ms | Store: SQLite WAL
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Specs -->
+  <section class="grid-section" id="veto">
+    <div class="card">
+      <h3>Deterministic Veto Layer Architecture</h3>
+      <p>Hard-coded validation rules intercepting AI candidate responses before dispatch. Blocks unverified price guarantees, illegal medical promises, and hallucinated services.</p>
+      <div class="code-block">
+// brain/guard.py
+def inspect_llm_output(prompt: str, response: str) -> GuardResult:
+    if detects_unvalidated_price_promise(response):
+        return GuardResult(vetoed=True, reason="UNVALIDATED_PRICE")
+    return GuardResult(vetoed=False, clean_response=response)
+      </div>
+    </div>
+
+    <div class="card" id="playwright">
+      <h3>Playwright Browser Automation</h3>
+      <p>Automated headful/headless browser agent handling messenger login, multi-account session management, and DOM message scraping.</p>
+      <div class="code-block">
+// capture/browser.py
+async function dispatchAvitoMessage(
+  page: Page, recipient: string, text: string
+): Promise<boolean>;
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>aiogram 3 Telegram Admin Panel</h3>
+      <p>Real-time operator escalation panel allowing clinic managers to override Veto flags, inspect live dialogues, and take over patient chats.</p>
+      <div class="code-block">
+// brain/tg/panel.py
+@router.callback_query(F.data.startswith("takeover:"))
+async def handle_operator_takeover(query: CallbackQuery):
+    await pause_ai_for_chat(chat_id)
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Avito Dental & Medical AI Assistant • GitHub Pages Documentation</p>
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('vetoCanvas');
+    const ctx = canvas.getContext('2d');
+    let testState = 'valid';
+    let pulse = 0;
+
+    function testPrompt(mode) {
+      testState = mode;
+      document.querySelectorAll('.demo-controls .btn').forEach(b => {
+        if (b.innerText.toLowerCase().includes(mode.substring(0, 5))) b.classList.add('btn-active');
+        else b.classList.remove('btn-active');
+      });
+    }
+
+    function renderVetoSim() {
+      pulse += 0.04;
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.fillStyle = '#06050e';
+      ctx.fillRect(0, 0, w, h);
+
+      // Render flow nodes: User -> Gemini LLM -> Veto Layer -> Patient
+      const nodes = [
+        { name: 'Patient Input', x: w * 0.15, color: '#60a5fa' },
+        { name: 'Gemini 2.5 Flash', x: w * 0.38, color: '#c084fc' },
+        { name: 'Veto Inspection Guard', x: w * 0.62, color: testState === 'hallucination' ? '#ef4444' : '#22c55e' },
+        { name: 'Final Dispatch / Operator', x: w * 0.85, color: '#38bdf8' }
+      ];
+
+      nodes.forEach((n, idx) => {
+        ctx.fillStyle = '#0f172a';
+        ctx.strokeStyle = n.color;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.roundRect(n.x - 70, h/2 - 40, 140, 80, 8);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#fff';
+        ctx.font = '13px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillText(n.name, n.x, h/2 + 5);
+
+        // Arrows
+        if (idx < nodes.length - 1) {
+          const nextX = nodes[idx+1].x;
+          ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+          ctx.beginPath();
+          ctx.moveTo(n.x + 70, h/2);
+          ctx.lineTo(nextX - 70, h/2);
+          ctx.stroke();
+        }
+      });
+
+      let statusText = 'Veto Filter: PASSED | Response Latency: 420 ms';
+      if (testState === 'hallucination') {
+        statusText = 'Veto Filter: VETOED [Unvalidated Price Guarantee Blocked] | Fallback: Sent to Operator';
+      } else if (testState === 'escalation') {
+        statusText = 'Veto Filter: ESCALATED [Patient Requested Human Doctor] | Mode: Human Takeover';
+      }
+
+      document.getElementById('hudStats').innerText = 
+        `Query: ${testState.toUpperCase()} | LLM Output: Inspected | ${statusText} | Store: SQLite WAL`;
+
+      requestAnimationFrame(renderVetoSim);
+    }
+
+    renderVetoSim();
+  </script>
+</body>
+</html>

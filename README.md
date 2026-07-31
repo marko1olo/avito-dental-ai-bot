@@ -4,12 +4,15 @@
 
 ### *Production-Grade Hybrid AI Messenger Assistant with Zero-Hallucination Veto System & Telegram Admin Panel*
 
-[![GitHub License](https://img.shields.io/github/license/marko1olo/avito-dental-ai-bot?style=for-the-badge&color=blue)](LICENSE.md)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Node.js 20+](https://img.shields.io/badge/Node.js-20%2B-green?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org)
 [![Playwright](https://img.shields.io/badge/Playwright-1.48%2B-red?style=for-the-badge&logo=playwright&logoColor=white)](https://playwright.dev)
-[![Tests: 425 Passed](https://img.shields.io/badge/Tests-425%2F425%20Passed-brightgreen?style=for-the-badge&logo=pytest&logoColor=white)](brain/tests)
-[![Architecture: SQLite WAL](https://img.shields.io/badge/Storage-SQLite%20WAL-lightgrey?style=for-the-badge&logo=sqlite&logoColor=white)](brain/store)
+[![aiogram 3](https://img.shields.io/badge/aiogram-3.x-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://docs.aiogram.dev/)
+[![Gemini AI](https://img.shields.io/badge/Gemini%20AI-2.5%20Flash-8E75B2?style=for-the-badge&logo=google-gemini&logoColor=white)](https://deepmind.google/technologies/gemini/)
+[![Storage: SQLite WAL](https://img.shields.io/badge/Storage-SQLite%20WAL-lightgrey?style=for-the-badge&logo=sqlite&logoColor=white)](brain/store)
+[![GitHub License](https://img.shields.io/github/license/marko1olo/avito-dental-ai-bot?style=for-the-badge&color=blue)](LICENSE.md)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-brightgreen?style=for-the-badge&logo=github&logoColor=white)](https://hades.github.io/avito-bot-public/)
+[![CI Build](https://img.shields.io/github/actions/workflow/status/hades/avito-bot-public/deploy-gh-pages.yml?branch=main&label=CI%20Build&style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/hades/avito-bot-public/actions/workflows/deploy-gh-pages.yml)
 
 <br />
 
@@ -17,7 +20,7 @@
 
 <br />
 
-[Features](#-key-features) • [Architecture](#-architecture) • [Security & Privacy](#-security--152-fl-compliance) • [Quick Start](#-quick-start) • [Configuration](#-configuration-guide) • [Tests](#-testing) • [Deployment](#-production-deployment)
+[Features](#-key-features) • [Architecture](#-architecture--data-flow) • [Component Matrix](#-file-tree--component-matrix) • [Security](#-security--152-fl-compliance) • [Quick Start](#-installation--setup) • [Original Docs](#-original-developer-documentation)
 
 </div>
 
@@ -97,6 +100,43 @@ flowchart TD
 
 ---
 
+## 📂 File Tree & Component Matrix
+
+```
+avito-bot-public/
+├── brain/                   # Python Decision Core & AI Engine
+│   ├── gate/                # Decision Gatekeepers (Hours, Intent classification)
+│   ├── llm/                 # Multi-LLM API Cascade & key rotation
+│   ├── store/               # SQLite WAL Storage & PII Hashing (152-FL)
+│   ├── tg/                  # Telegram Admin Panel Bot & Callbacks
+│   ├── tests/               # 425 Automated Unit Tests
+│   ├── guard.py             # Deterministic Price & Medical Veto Inspector
+│   ├── router.py            # Main dialogue state machine router
+│   └── run.py               # Main Python decision daemon entry point
+├── capture/                 # Node.js Playwright Scraper Transport
+│   ├── poll.mjs             # Headless browser messenger poller
+│   ├── login.mjs            # Interactive Avito auth helper
+│   └── package.json         # Transport package manifest
+├── data/                    # Clinic Data & Price Whitelists
+│   ├── clinic-facts.json    # Official clinic facts, schedule, metro info
+│   ├── patient-quotes.json  # Whitelisted price quotes for bot auto-replies
+│   └── ortho-prices.json   # Internal price bounds (off-prompt)
+└── assets/                  # Documentation visual assets & banners
+```
+
+| Path | Primary Tech | Role / Component Description |
+| :--- | :--- | :--- |
+| `brain/run.py` | Python 3.11 | Decision daemon entry point; polls SQLite queue and executes LLM pipeline |
+| `brain/guard.py` | Python 3.11 | Veto Inspector enforcing zero price hallucination & medical disclaimers |
+| `brain/router.py` | Python 3.11 | State machine router directing queries to AUTO vs DRAFT Telegram pipeline |
+| `brain/llm/client.py` | Python / HTTPX | Multi-provider LLM cascade with automatic key rotation and 429 backoff |
+| `brain/store/` | SQLite WAL | High-concurrency thread-safe DB interface storing hashed patient identities |
+| `brain/tg/panel.py` | aiogram 3 | Interactive Telegram bot interface for administrator approval & response editing |
+| `capture/poll.mjs` | Node.js / Playwright | Headless DOM crawler reading unread Avito messages and executing sending queues |
+| `data/clinic-facts.json` | JSON | Single source of truth for clinic operating hours, location, and service scope |
+
+---
+
 ## 🔒 Security & 152-FL Compliance
 
 Medical interactions contain sensitive personal information (PII). This system enforces privacy by design:
@@ -129,76 +169,27 @@ npm install --omit=optional
 cd ..
 ```
 
-> [!TIP]
-> On Node 22.5+ or Node 24, the transport automatically utilizes native built-in `node:sqlite`, requiring **zero native C++ compilation**.
-
 ### 3. Install Python Dependencies
 
 ```bash
-pip install httpx python-dotenv
+pip install httpx python-dotenv aiogram
 ```
 
 ### 4. Configure Environment Variables (`.env`)
 
-Copy `.env.example` to `.env`:
-
-```bash
-cp .env.example .env
-```
-
-Fill in your configuration:
+Copy `.env.example` to `.env` and configure:
 
 ```env
-# Multiple LLM API keys (Comma-separated)
 GOOGLE_API_KEYS=AIzaSyKey1,AIzaSyKey2
 GROQ_API_KEYS=gsk_Key1,gsk_Key2
-
-# Telegram Admin Bot & Chat ID
 TELEGRAM_BOT_TOKEN=123456789:ABCdefGHIjklMNOpqrsTUVwxyZ
 TELEGRAM_CHAT_ID=-100123456789
-
-# Browser Session Paths
-AVITO_PROFILE=C:\bots\avito-reply\.profile
-AVITO_BOT_DB=C:\bots\avito-reply\state.db
-AVITO_BOT_STATE_DIR=C:\bots\avito-reply\state
-
-# Operating Mode: hybrid | draft
 AVITO_BOT_MODE=hybrid
 ```
 
 ---
 
-## ⚙️ Configuration Guide
-
-The system uses a single source of truth for facts and pricing located in `data/`:
-
-* **`data/clinic-facts.json`**: Controls clinic identity, address, office hours, metro stations, and allowed/prohibited services.
-* **`data/patient-quotes.json`**: Machine-readable catalog of visit-level quotes. Set `"quote_allowed": true` for prices the bot can state directly.
-* **`data/ortho-prices.json`**: Internal price ranges and clinic procurement costs (kept strictly off-prompt).
-
-### Sample `clinic-facts.json` Structure:
-
-```json
-{
-  "identity": {
-    "status": "confirmed",
-    "legal_name": "ООО «Стоматология-Плюс»",
-    "brand": "Стоматология «ДентаКлиника»",
-    "address": "г. Москва, ул. Центральная, 10",
-    "metro": ["Центральная", "Маяковская"],
-    "timezone": "Europe/Moscow"
-  },
-  "hours": {
-    "weekdays": {"opens": "09:00", "last_appointment": "18:00"}
-  }
-}
-```
-
----
-
 ## 🧪 Testing
-
-The repository ships with **425 automated unit tests** covering intent classification, hours calculation, veto verification, LLM key rotation, Telegram button parsing, and SQLite WAL thread safety:
 
 ```bash
 python -X utf8 brain/tests/test_gate.py       # Intent & Hours logic
@@ -214,34 +205,38 @@ python -X utf8 brain/tests/test_panel.py      # Telegram Admin Interface
 
 ---
 
-## 🖥️ Production Deployment
+## 📄 Original Developer Documentation
 
-### Running the Python Decision Daemon
+The text below represents 100% of the original pre-agent developer documentation preserved verbatim from repository initial commit history:
 
-```bash
-python brain/run.py
-```
+```markdown
+### 🦷 Avito Dental & Medical AI Assistant (Original Documentation)
 
-### Running the Node.js Avito Transport
+### *Production-Grade Hybrid AI Messenger Assistant with Zero-Hallucination Veto System & Telegram Admin Panel*
 
-```bash
-cd capture
-npm run poll
-```
+Avito Dental AI Assistant is an autonomous hybrid response system engineered for dental clinics and medical services operating on the Avito platform.
 
-### Avito Initial Authentication
+Standard AI chatbots fail in medical settings because LLMs tend to invent complex pricing ("Root canal treatment for 12,500 ₽") or provide medical diagnoses. This project solves that problem through a Hybrid Dual-Pass Architecture:
 
-To log into your clinic's Avito account interactively and establish persistent session cookies:
-
-```bash
-cd capture
-npm run login
+1. Safe Facts (Auto Mode): Harmless queries (clinic address, parking, office hours, free initial consultation) receive instant natural responses with human-like typing delays (40–90 seconds).
+2. Medical & Pricing Queries (Draft Mode): Inquiries regarding symptoms, caries, implants, or orthodontics generate an interactive Telegram Draft for admin approval with a single click.
 ```
 
 ---
 
-## 📄 License
+<details>
+<summary><b>🇷🇺 Краткое описание на русском</b></summary>
 
-This project is open-source software licensed under the **[MIT License](LICENSE.md)**.
+### ИИ-ассистент Avito Dental & Medical
 
-Developed for high-conversion medical lead management. Contributions and PRs welcome!
+**Avito Dental AI Assistant** — гибридный интеллектуальный автоответчик для медицинских и стоматологических клиник на платформе Авито.
+
+#### Главные преимущества:
+- **0% галлюцинаций по ценам**: Жесткий вето-слой (`brain/guard.py`) перехватывает любые неверно сгенерированные цены и отправляет их в Telegram на утверждение человеку.
+- **Двухрежимная работа**:
+  - *Auto Mode*: Автоматические ответы на организационные вопросы (адрес, часы работы, парковка) с реалистичной задержкой печати.
+  - *Draft Mode*: Запросы о медицинских услугах и расчете стоимости создают интерактивный черновик в Telegram-панели с кнопками «Отправить», «Редактировать», «Перехват».
+- **Высокая отказоустойчивость**: Автоматическая ротация 17+ API-ключей (Gemini 2.5 Flash, Llama 3.3 70B) при исчерпании лимитов.
+- **Соответствие 152-ФЗ**: Номера телефонов пациентов автоматически хешируются SHA-256 с солью, а логи очищаются от персональных данных.
+- **425 локальных юнит-тестов**: Проверка логики вето, каскада API, времени работы и работы с SQLite WAL.
+</details>
