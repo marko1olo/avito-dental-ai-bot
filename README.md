@@ -11,8 +11,8 @@
 [![Gemini AI](https://img.shields.io/badge/Gemini%20AI-2.5%20Flash-8E75B2?style=for-the-badge&logo=google-gemini&logoColor=white)](https://deepmind.google/technologies/gemini/)
 [![Storage: SQLite WAL](https://img.shields.io/badge/Storage-SQLite%20WAL-lightgrey?style=for-the-badge&logo=sqlite&logoColor=white)](brain/store)
 [![GitHub License](https://img.shields.io/github/license/marko1olo/avito-dental-ai-bot?style=for-the-badge&color=blue)](LICENSE.md)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-brightgreen?style=for-the-badge&logo=github&logoColor=white)](https://hades.github.io/avito-bot-public/)
-[![CI Build](https://img.shields.io/github/actions/workflow/status/hades/avito-bot-public/deploy-gh-pages.yml?branch=main&label=CI%20Build&style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/hades/avito-bot-public/actions/workflows/deploy-gh-pages.yml)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-brightgreen?style=for-the-badge&logo=github&logoColor=white)](https://marko1olo.github.io/avito-dental-ai-bot/)
+[![CI Build](https://img.shields.io/github/actions/workflow/status/marko1olo/avito-dental-ai-bot/deploy-gh-pages.yml?branch=main&label=CI%20Build&style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/marko1olo/avito-dental-ai-bot/actions/workflows/deploy-gh-pages.yml)
 
 <br />
 
