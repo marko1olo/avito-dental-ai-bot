@@ -1,0 +1,17 @@
+{
+  "name": "Avito Dental AI Bot",
+  "short_name": "AvitoBot",
+  "description": "4-Stage Clinical Veto Pipeline & Lead Acquisition Bot",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#18120c",
+  "theme_color": "#f59e0b",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
