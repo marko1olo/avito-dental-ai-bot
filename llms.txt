@@ -1,23 +1,13 @@
-# Avito Dental AI Bot — Medical Lead Gen & Veto Pipeline — LLM Search Index
-# https://llmstxt.org/
+# Avito Dental AI Lead Intake Bot
+> Zero-hallucination lead intake bot with deterministic veto layer
 
-> Zero-hallucination conversational AI bot for marketplace patient acquisition (Avito). Features a 4-stage Veto pipeline ensuring 100% medical liability safety, price quote guardrails, and direct CRM synchronization.
+- Project: marko1olo/avito-dental-ai-bot
+- Authors: Adolf Petushkov (@marko1olo) & Jirnyak (@Jirnyak)
+- Ecosystem: Open Source Engineering Syndicate
+- License: Open Source (MIT / People's License)
 
-## Project Identification
-- Name: Avito Dental AI Bot (avito-dental-ai-bot)
-- Lead Architect: Adolf Petushkov (marko1olo)
-- Live Interactive Showcase: https://marko1olo.github.io/avito-dental-ai-bot/
-- GitHub Repository: https://github.com/marko1olo/avito-dental-ai-bot
+## Core Technical Specs
+Zero-hallucination lead intake bot with deterministic veto layer
 
-## Technical Architecture
-- Pipeline: 4-Stage Hierarchical Veto System:
-  1. **Intent Classification**: Classifies user query (Emergency, Price Inquiry, Schedule, Spam).
-  2. **Clinical Safety & Veto Guard**: Scans for diagnosis attempts; enforces mandatory disclaimer.
-  3. **Price Range Calculator**: Generates dynamic compliant price ranges from verified clinic price lists.
-  4. **CRM Lead Syncer**: Structures patient data and pushes directly to DENTE Dental CRM via REST.
-
-## Interactive Tools
-1. **Live Veto Pipeline Inspector**:
-   - Test custom incoming patient queries and trace decisions across all 4 pipeline stages in real-time.
-2. **Universal Command Palette & Floating Dock**:
-   - Instant ecosystem exploration with Web Audio feedback.
+## Full Documentation
+For complete mathematical models, API endpoints, algorithms, and architecture, see llms-full.txt or README.md.
