@@ -1,3 +1,5 @@
+<p align="center"><img src="https://raw.githubusercontent.com/marko1olo/gigahrush/main/docs/avito_dental_bot.jpg" width="100%" alt="Avito Dental AI Triage & Automated Lead Qualifier"/></p>
+
 <div align="center">
 
 # 🦷 Avito Dental & Medical AI Assistant
