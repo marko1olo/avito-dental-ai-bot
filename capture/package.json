@@ -1,21 +1,21 @@
 {
-  "name": "avito-bot-capture",
-  "version": "0.2.0",
-  "private": true,
-  "type": "module",
-  "description": "Транспорт Авито: персистентная сессия, DOM-опрос входящих, отправка одобренных ответов",
-  "engines": {
-    "node": ">=20"
-  },
-  "scripts": {
-    "health": "node src/session.mjs",
-    "poll": "node src/run-poll.mjs",
-    "login": "node src/login.mjs"
-  },
-  "dependencies": {
-    "playwright": "^1.48.0"
-  },
-  "optionalDependencies": {
-    "better-sqlite3": "^11.3.0"
-  }
+	"name": "avito-bot-capture",
+	"version": "0.2.0",
+	"private": true,
+	"type": "module",
+	"description": "Транспорт Авито: персистентная сессия, DOM-опрос входящих, отправка одобренных ответов",
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"health": "node src/session.mjs",
+		"poll": "node src/run-poll.mjs",
+		"login": "node src/login.mjs"
+	},
+	"dependencies": {
+		"playwright": "^1.48.0"
+	},
+	"optionalDependencies": {
+		"better-sqlite3": "^11.3.0"
+	}
 }

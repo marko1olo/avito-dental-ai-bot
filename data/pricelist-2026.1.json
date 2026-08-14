@@ -1,183 +1,1106 @@
 {
-  "source": {
-    "clinic": "ООО «Стоматология-Плюс»",
-    "document": "Прейскурант цен на оказание стоматологической помощи",
-    "file": "прайс 2026.1.pdf",
-    "origin_url": "https://disk.yandex.ru/i/a5zEbkf55e94dw",
-    "linked_from": "https://denta-clinic.example.com/",
-    "signed_by": "Директор И.И.Иванов",
-    "document_date": "не заполнена в документе (« » ____________2026 г.)",
-    "yandex_disk_uploaded": "2026-05-25T09:22:40+00:00",
-    "pages": 3,
-    "currency": "RUB"
-  },
-  "extraction": {
-    "method": "pdfplumber word coordinates, price bound to the row band that contains it, then every page verified against a 170-dpi render read visually",
-    "extracted_on": "2026-07-29",
-    "rejected_method": "pdftotext -layout — reflows multi-line service names and shifts the price column; it was wrong on nearly every row of Section 1",
-    "cross_checks_passed": [
-      "5.7 Straumann 65000 == Yandex Maps card «Импланты Швейцария 65000»",
-      "5.8 Dentium Корея 32000 == Yandex Maps card «Импланты Корея 32000»",
-      "5.9 all for 6 370000 == Yandex Maps card «All-on-6 370000»",
-      "13.5 цирконий 27000 == Yandex Maps card «Циркониевые коронки 27000»",
-      "14.0 съемный протез от 30000 == Yandex Maps card «Съёмное протезирование 30000»"
-    ],
-    "price_semantics": "min/max are the printed bounds. open_ended=true means the document prints «от» — the value is a floor, never a quote. Prices are PER PROCEDURE, not per visit: anaesthesia (1.2/1.3) and materials (sections 6-11) are billed on top of the treatment line."
-  },
-  "source_document_defects": [
-    {"code": "1.16", "issue": "duplicate_code", "detail": "used twice: «Лазерное отбеливание зубов» and «Лечение лазером слизистой»"},
-    {"code": "5.3", "issue": "duplicate_code", "detail": "used twice: «Удаление 8-х зубов» and «Удаление ретинированного зуба»"},
-    {"code": "1.10", "issue": "no_price", "detail": "«Обучение гигиене полости рта» has neither unit nor price"},
-    {"code": "2.1", "issue": "no_price", "detail": "«Кариес и некаризионные поражения» is a header row with an empty price cell"},
-    {"code": "10.1", "issue": "missing_code", "detail": "section 10 jumps from 10.0 to 10.2"},
-    {"code": "13.0", "issue": "missing_code", "detail": "section 13 starts at 13.1"},
-    {"code": "5.5", "issue": "typo", "detail": "price printed «0т 50000» — zero instead of «о» in «от»"},
-    {"code": "2.1.3.1", "issue": "typo", "detail": "«по Влеку» should be «по Блеку» (Black's classification); appears in 2.1.3.1-2.1.3.3"},
-    {"code": "1.3", "issue": "typo", "detail": "«инралигаментарная» should be «интралигаментарная»"},
-    {"code": "4.13", "issue": "typo", "detail": "«повязка но слизистую» should be «на слизистую»"},
-    {"code": "5.7", "issue": "typo", "detail": "«Имплантант» should be «Имплантат»; same in 5.8"},
-    {"code": "7.0", "issue": "typo", "detail": "«Дополнительны материалы» should be «Дополнительные»"},
-    {"code": "13.3", "issue": "suspect_price", "detail": "титановая коронка 2000 is cheaper than пластмассовая 3500 and far cheaper than цельнолитая 13000 — probable transcription error in the source, must be confirmed before a bot ever quotes it"},
-    {"code": "1.11", "issue": "suspect_price", "detail": "профгигиена одного зуба 400 implies ~11200 for a full mouth, while 1.15 «Комплексная чистка зубов» is 7000 — confirm which one is quoted to patients"},
-    {"code": "24.1", "issue": "unit_inconsistency", "detail": "«Ипеен» priced per «2 слепка» while 24.2 «Спидекс» is per «1 слепок»"}
-  ],
-  "absent_from_pricelist_but_advertised_elsewhere": [
-    {"service": "Виниры", "advertised_at": "Yandex Maps card, 16000 ₽", "note": "no line item in the price list at all"},
-    {"service": "Лечение кариеса «от 5000»", "advertised_at": "denta-clinic.example.com home page", "note": "price list has 2.1.3 = 4000-5000 for the filling; anaesthesia 1.3 = 800 is separate, so the real visit total exceeds the advertised floor"},
-    {"service": "Лечение пульпита «от 7000»", "advertised_at": "denta-clinic.example.com home page", "note": "bundled estimate; price list decomposes it into 4.2 + per-canal 4.4/4.5/4.7 + filling"},
-    {"service": "Лечение периодонтита «от 9000»", "advertised_at": "denta-clinic.example.com home page", "note": "bundled estimate, not a price-list line"},
-    {"service": "Ортодонтия / брекеты", "advertised_at": "aggregator rubrics (гнатология, ортодонтия)", "note": "entirely absent from the price list"},
-    {"service": "Детская стоматология", "advertised_at": "aggregator listings", "note": "entirely absent from the price list"},
-    {"service": "Рентген / КТ / снимки", "advertised_at": "implied by treatment workflow", "note": "entirely absent from the price list"}
-  ],
-  "sections": [
-    {"n": 1, "title": "Общие виды работ"},
-    {"n": 2, "title": "Виды работ на терапевтическом приеме"},
-    {"n": 6, "title": "Стоимость дополнительных материалов"},
-    {"n": 3, "title": "Ортопедический прием", "note": "section numbering in the source restarts and collides with section 3.0 «Восстановление дефектов зубных рядов»"}
-  ],
-  "items": [
-    {"code": "1.1",  "name": "Консультация специалиста (осмотр, сбор анамнеза, консультация, оформление документации, консультативное заключение)", "unit": "1 консультация", "min": 500, "max": 1000, "open_ended": false},
-    {"code": "1.2",  "name": "Анестезия аппликационная", "unit": "1 анестезия", "min": 200, "max": 200, "open_ended": false},
-    {"code": "1.3",  "name": "Анестезия внутриротовая (инфильтрационная, проводниковая, внутрипульпарная, интралигаментарная)", "unit": "1 анестезия", "min": 800, "max": 800, "open_ended": false},
-    {"code": "1.4",  "name": "Снятие искусственной коронки", "unit": "1 снятие", "min": 500, "max": 500, "open_ended": false},
-    {"code": "1.5",  "name": "Снятие цельнолитой коронки", "unit": "1 снятие", "min": 500, "max": 500, "open_ended": false},
-    {"code": "1.6",  "name": "Ультразвуковая обработка тканей", "unit": "1 зуб", "min": 350, "max": 350, "open_ended": false},
-    {"code": "1.7",  "name": "Аппликация лекарственного препарата на слизистую оболочку полости рта", "unit": "1 аппликация", "min": 500, "max": 1000, "open_ended": false},
-    {"code": "1.8",  "name": "Снятие пломбы", "unit": "1 снятие", "min": 800, "max": 800, "open_ended": false},
-    {"code": "1.9",  "name": "Трепанация зуба, искусственной коронки", "unit": "1 трепанация", "min": 1000, "max": 1000, "open_ended": false},
-    {"code": "1.10", "name": "Обучение гигиене полости рта", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "no_price"},
-    {"code": "1.11", "name": "Проведение профессиональной гигиены одного зуба (снятие над-, под- десневого зубного камня, шлифовка, полировка)", "unit": "1 зуб", "min": 400, "max": 400, "open_ended": false, "flag": "suspect_price"},
-    {"code": "1.12", "name": "Завершение лечения осложненного кариеса под культевую вкладку", "unit": "1 зуб", "min": 1500, "max": 1500, "open_ended": false},
-    {"code": "1.13", "name": "Местное применение реминерализирующих и фторсодержащих препаратов", "unit": "1 применение", "min": 2200, "max": 2200, "open_ended": false},
-    {"code": "1.14", "name": "Покрытие зубов фторлаком, фторгелем", "unit": "1 зуб", "min": 350, "max": 350, "open_ended": false},
-    {"code": "1.15", "name": "Комплексная чистка зубов", "unit": "1 штука", "min": 7000, "max": 7000, "open_ended": false},
-    {"code": "1.16", "name": "Лазерное отбеливание зубов", "unit": "1 процедура", "min": 6000, "max": null, "open_ended": true},
-    {"code": "1.16b", "name": "Лечение лазером слизистой", "unit": "1 область", "min": 1000, "max": 1000, "open_ended": false, "flag": "duplicate_code_in_source"},
+	"source": {
+		"clinic": "ООО «Стоматология-Плюс»",
+		"document": "Прейскурант цен на оказание стоматологической помощи",
+		"file": "прайс 2026.1.pdf",
+		"origin_url": "https://disk.yandex.ru/i/a5zEbkf55e94dw",
+		"linked_from": "https://denta-clinic.example.com/",
+		"signed_by": "Директор И.И.Иванов",
+		"document_date": "не заполнена в документе (« » ____________2026 г.)",
+		"yandex_disk_uploaded": "2026-05-25T09:22:40+00:00",
+		"pages": 3,
+		"currency": "RUB"
+	},
+	"extraction": {
+		"method": "pdfplumber word coordinates, price bound to the row band that contains it, then every page verified against a 170-dpi render read visually",
+		"extracted_on": "2026-07-29",
+		"rejected_method": "pdftotext -layout — reflows multi-line service names and shifts the price column; it was wrong on nearly every row of Section 1",
+		"cross_checks_passed": [
+			"5.7 Straumann 65000 == Yandex Maps card «Импланты Швейцария 65000»",
+			"5.8 Dentium Корея 32000 == Yandex Maps card «Импланты Корея 32000»",
+			"5.9 all for 6 370000 == Yandex Maps card «All-on-6 370000»",
+			"13.5 цирконий 27000 == Yandex Maps card «Циркониевые коронки 27000»",
+			"14.0 съемный протез от 30000 == Yandex Maps card «Съёмное протезирование 30000»"
+		],
+		"price_semantics": "min/max are the printed bounds. open_ended=true means the document prints «от» — the value is a floor, never a quote. Prices are PER PROCEDURE, not per visit: anaesthesia (1.2/1.3) and materials (sections 6-11) are billed on top of the treatment line."
+	},
+	"source_document_defects": [
+		{
+			"code": "1.16",
+			"issue": "duplicate_code",
+			"detail": "used twice: «Лазерное отбеливание зубов» and «Лечение лазером слизистой»"
+		},
+		{
+			"code": "5.3",
+			"issue": "duplicate_code",
+			"detail": "used twice: «Удаление 8-х зубов» and «Удаление ретинированного зуба»"
+		},
+		{
+			"code": "1.10",
+			"issue": "no_price",
+			"detail": "«Обучение гигиене полости рта» has neither unit nor price"
+		},
+		{
+			"code": "2.1",
+			"issue": "no_price",
+			"detail": "«Кариес и некаризионные поражения» is a header row with an empty price cell"
+		},
+		{
+			"code": "10.1",
+			"issue": "missing_code",
+			"detail": "section 10 jumps from 10.0 to 10.2"
+		},
+		{
+			"code": "13.0",
+			"issue": "missing_code",
+			"detail": "section 13 starts at 13.1"
+		},
+		{
+			"code": "5.5",
+			"issue": "typo",
+			"detail": "price printed «0т 50000» — zero instead of «о» in «от»"
+		},
+		{
+			"code": "2.1.3.1",
+			"issue": "typo",
+			"detail": "«по Влеку» should be «по Блеку» (Black's classification); appears in 2.1.3.1-2.1.3.3"
+		},
+		{
+			"code": "1.3",
+			"issue": "typo",
+			"detail": "«инралигаментарная» should be «интралигаментарная»"
+		},
+		{
+			"code": "4.13",
+			"issue": "typo",
+			"detail": "«повязка но слизистую» should be «на слизистую»"
+		},
+		{
+			"code": "5.7",
+			"issue": "typo",
+			"detail": "«Имплантант» should be «Имплантат»; same in 5.8"
+		},
+		{
+			"code": "7.0",
+			"issue": "typo",
+			"detail": "«Дополнительны материалы» should be «Дополнительные»"
+		},
+		{
+			"code": "13.3",
+			"issue": "suspect_price",
+			"detail": "титановая коронка 2000 is cheaper than пластмассовая 3500 and far cheaper than цельнолитая 13000 — probable transcription error in the source, must be confirmed before a bot ever quotes it"
+		},
+		{
+			"code": "1.11",
+			"issue": "suspect_price",
+			"detail": "профгигиена одного зуба 400 implies ~11200 for a full mouth, while 1.15 «Комплексная чистка зубов» is 7000 — confirm which one is quoted to patients"
+		},
+		{
+			"code": "24.1",
+			"issue": "unit_inconsistency",
+			"detail": "«Ипеен» priced per «2 слепка» while 24.2 «Спидекс» is per «1 слепок»"
+		}
+	],
+	"absent_from_pricelist_but_advertised_elsewhere": [
+		{
+			"service": "Виниры",
+			"advertised_at": "Yandex Maps card, 16000 ₽",
+			"note": "no line item in the price list at all"
+		},
+		{
+			"service": "Лечение кариеса «от 5000»",
+			"advertised_at": "denta-clinic.example.com home page",
+			"note": "price list has 2.1.3 = 4000-5000 for the filling; anaesthesia 1.3 = 800 is separate, so the real visit total exceeds the advertised floor"
+		},
+		{
+			"service": "Лечение пульпита «от 7000»",
+			"advertised_at": "denta-clinic.example.com home page",
+			"note": "bundled estimate; price list decomposes it into 4.2 + per-canal 4.4/4.5/4.7 + filling"
+		},
+		{
+			"service": "Лечение периодонтита «от 9000»",
+			"advertised_at": "denta-clinic.example.com home page",
+			"note": "bundled estimate, not a price-list line"
+		},
+		{
+			"service": "Ортодонтия / брекеты",
+			"advertised_at": "aggregator rubrics (гнатология, ортодонтия)",
+			"note": "entirely absent from the price list"
+		},
+		{
+			"service": "Детская стоматология",
+			"advertised_at": "aggregator listings",
+			"note": "entirely absent from the price list"
+		},
+		{
+			"service": "Рентген / КТ / снимки",
+			"advertised_at": "implied by treatment workflow",
+			"note": "entirely absent from the price list"
+		}
+	],
+	"sections": [
+		{ "n": 1, "title": "Общие виды работ" },
+		{ "n": 2, "title": "Виды работ на терапевтическом приеме" },
+		{ "n": 6, "title": "Стоимость дополнительных материалов" },
+		{
+			"n": 3,
+			"title": "Ортопедический прием",
+			"note": "section numbering in the source restarts and collides with section 3.0 «Восстановление дефектов зубных рядов»"
+		}
+	],
+	"items": [
+		{
+			"code": "1.1",
+			"name": "Консультация специалиста (осмотр, сбор анамнеза, консультация, оформление документации, консультативное заключение)",
+			"unit": "1 консультация",
+			"min": 500,
+			"max": 1000,
+			"open_ended": false
+		},
+		{
+			"code": "1.2",
+			"name": "Анестезия аппликационная",
+			"unit": "1 анестезия",
+			"min": 200,
+			"max": 200,
+			"open_ended": false
+		},
+		{
+			"code": "1.3",
+			"name": "Анестезия внутриротовая (инфильтрационная, проводниковая, внутрипульпарная, интралигаментарная)",
+			"unit": "1 анестезия",
+			"min": 800,
+			"max": 800,
+			"open_ended": false
+		},
+		{
+			"code": "1.4",
+			"name": "Снятие искусственной коронки",
+			"unit": "1 снятие",
+			"min": 500,
+			"max": 500,
+			"open_ended": false
+		},
+		{
+			"code": "1.5",
+			"name": "Снятие цельнолитой коронки",
+			"unit": "1 снятие",
+			"min": 500,
+			"max": 500,
+			"open_ended": false
+		},
+		{
+			"code": "1.6",
+			"name": "Ультразвуковая обработка тканей",
+			"unit": "1 зуб",
+			"min": 350,
+			"max": 350,
+			"open_ended": false
+		},
+		{
+			"code": "1.7",
+			"name": "Аппликация лекарственного препарата на слизистую оболочку полости рта",
+			"unit": "1 аппликация",
+			"min": 500,
+			"max": 1000,
+			"open_ended": false
+		},
+		{
+			"code": "1.8",
+			"name": "Снятие пломбы",
+			"unit": "1 снятие",
+			"min": 800,
+			"max": 800,
+			"open_ended": false
+		},
+		{
+			"code": "1.9",
+			"name": "Трепанация зуба, искусственной коронки",
+			"unit": "1 трепанация",
+			"min": 1000,
+			"max": 1000,
+			"open_ended": false
+		},
+		{
+			"code": "1.10",
+			"name": "Обучение гигиене полости рта",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "no_price"
+		},
+		{
+			"code": "1.11",
+			"name": "Проведение профессиональной гигиены одного зуба (снятие над-, под- десневого зубного камня, шлифовка, полировка)",
+			"unit": "1 зуб",
+			"min": 400,
+			"max": 400,
+			"open_ended": false,
+			"flag": "suspect_price"
+		},
+		{
+			"code": "1.12",
+			"name": "Завершение лечения осложненного кариеса под культевую вкладку",
+			"unit": "1 зуб",
+			"min": 1500,
+			"max": 1500,
+			"open_ended": false
+		},
+		{
+			"code": "1.13",
+			"name": "Местное применение реминерализирующих и фторсодержащих препаратов",
+			"unit": "1 применение",
+			"min": 2200,
+			"max": 2200,
+			"open_ended": false
+		},
+		{
+			"code": "1.14",
+			"name": "Покрытие зубов фторлаком, фторгелем",
+			"unit": "1 зуб",
+			"min": 350,
+			"max": 350,
+			"open_ended": false
+		},
+		{
+			"code": "1.15",
+			"name": "Комплексная чистка зубов",
+			"unit": "1 штука",
+			"min": 7000,
+			"max": 7000,
+			"open_ended": false
+		},
+		{
+			"code": "1.16",
+			"name": "Лазерное отбеливание зубов",
+			"unit": "1 процедура",
+			"min": 6000,
+			"max": null,
+			"open_ended": true
+		},
+		{
+			"code": "1.16b",
+			"name": "Лечение лазером слизистой",
+			"unit": "1 область",
+			"min": 1000,
+			"max": 1000,
+			"open_ended": false,
+			"flag": "duplicate_code_in_source"
+		},
 
-    {"code": "2.1",   "name": "Кариес и некаризионные поражения твердых тканей зубов", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "2.1.1", "name": "Расшлифовывание 1 фиссуры, сошлифование некротических масс при кариесе в стадии пятна 1 зуба", "unit": "1 лечение", "min": 150, "max": 150, "open_ended": false},
-    {"code": "2.1.2", "name": "Закрытие 1 единицы фиссуры герметиком", "unit": "1 закрытие", "min": 450, "max": 450, "open_ended": false},
-    {"code": "2.1.3", "name": "Наложение 1 пломбы из композитов светового отверждения при поверхностном и среднем кариесе", "unit": "1 лечение", "min": 4000, "max": 5000, "open_ended": false},
-    {"code": "2.1.3.1", "name": "I и V класса по Блеку, кариесе цемента корня", "unit": "1 лечение", "min": 400, "max": 800, "open_ended": false},
-    {"code": "2.1.3.2", "name": "II и III класса по Блеку", "unit": "1 лечение", "min": 1000, "max": 1000, "open_ended": false},
-    {"code": "2.1.3.3", "name": "IV класса по Блеку", "unit": "1 лечение", "min": 1000, "max": 1000, "open_ended": false},
-    {"code": "2.1.4", "name": "Восстановление цвета и формы зуба при некариозных поражениях твердых тканей зубов (эрозия, клиновидный дефект, гипоплазия)", "unit": "1 восстановление", "min": 800, "max": 800, "open_ended": false},
-    {"code": "2.1.5", "name": "Восстановление формы зуба при отсутствии твердых тканей до 1/2 коронки зуба", "unit": "1 восстановление", "min": 5000, "max": 7000, "open_ended": false},
-    {"code": "2.1.6", "name": "Восстановление формы зуба при полном отсутствии коронки зуба (включена работа по подготовке корневого канала для корневого штифта)", "unit": "1 восстановление", "min": 7000, "max": 7000, "open_ended": false},
-    {"code": "2.1.7", "name": "Лечение под микроскопом", "unit": "1 лечение", "min": 15000, "max": null, "open_ended": true},
-    {"code": "2.1.8", "name": "Полировка пломбы из композита", "unit": "1 полировка", "min": 150, "max": 150, "open_ended": false},
-    {"code": "2.1.9", "name": "Чистка зубов профессиональной пастой", "unit": "1 процедура", "min": 1000, "max": 1000, "open_ended": false},
+		{
+			"code": "2.1",
+			"name": "Кариес и некаризионные поражения твердых тканей зубов",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "2.1.1",
+			"name": "Расшлифовывание 1 фиссуры, сошлифование некротических масс при кариесе в стадии пятна 1 зуба",
+			"unit": "1 лечение",
+			"min": 150,
+			"max": 150,
+			"open_ended": false
+		},
+		{
+			"code": "2.1.2",
+			"name": "Закрытие 1 единицы фиссуры герметиком",
+			"unit": "1 закрытие",
+			"min": 450,
+			"max": 450,
+			"open_ended": false
+		},
+		{
+			"code": "2.1.3",
+			"name": "Наложение 1 пломбы из композитов светового отверждения при поверхностном и среднем кариесе",
+			"unit": "1 лечение",
+			"min": 4000,
+			"max": 5000,
+			"open_ended": false
+		},
+		{
+			"code": "2.1.3.1",
+			"name": "I и V класса по Блеку, кариесе цемента корня",
+			"unit": "1 лечение",
+			"min": 400,
+			"max": 800,
+			"open_ended": false
+		},
+		{
+			"code": "2.1.3.2",
+			"name": "II и III класса по Блеку",
+			"unit": "1 лечение",
+			"min": 1000,
+			"max": 1000,
+			"open_ended": false
+		},
+		{
+			"code": "2.1.3.3",
+			"name": "IV класса по Блеку",
+			"unit": "1 лечение",
+			"min": 1000,
+			"max": 1000,
+			"open_ended": false
+		},
+		{
+			"code": "2.1.4",
+			"name": "Восстановление цвета и формы зуба при некариозных поражениях твердых тканей зубов (эрозия, клиновидный дефект, гипоплазия)",
+			"unit": "1 восстановление",
+			"min": 800,
+			"max": 800,
+			"open_ended": false
+		},
+		{
+			"code": "2.1.5",
+			"name": "Восстановление формы зуба при отсутствии твердых тканей до 1/2 коронки зуба",
+			"unit": "1 восстановление",
+			"min": 5000,
+			"max": 7000,
+			"open_ended": false
+		},
+		{
+			"code": "2.1.6",
+			"name": "Восстановление формы зуба при полном отсутствии коронки зуба (включена работа по подготовке корневого канала для корневого штифта)",
+			"unit": "1 восстановление",
+			"min": 7000,
+			"max": 7000,
+			"open_ended": false
+		},
+		{
+			"code": "2.1.7",
+			"name": "Лечение под микроскопом",
+			"unit": "1 лечение",
+			"min": 15000,
+			"max": null,
+			"open_ended": true
+		},
+		{
+			"code": "2.1.8",
+			"name": "Полировка пломбы из композита",
+			"unit": "1 полировка",
+			"min": 150,
+			"max": 150,
+			"open_ended": false
+		},
+		{
+			"code": "2.1.9",
+			"name": "Чистка зубов профессиональной пастой",
+			"unit": "1 процедура",
+			"min": 1000,
+			"max": 1000,
+			"open_ended": false
+		},
 
-    {"code": "3.0", "name": "Восстановление дефектов зубных рядов", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "3.1", "name": "Восстановление 1 единицы дефекта зубного ряда стекловолоконными материалами и фотополимером прямым способом, фронтальные зубы", "unit": "1 восстановление", "min": 3800, "max": 3800, "open_ended": false},
-    {"code": "3.2", "name": "То же, прямым способом, премоляры", "unit": "1 восстановление", "min": 4000, "max": 4000, "open_ended": false},
-    {"code": "3.3", "name": "То же, прямым способом, моляры", "unit": "1 восстановление", "min": 4500, "max": 4500, "open_ended": false},
-    {"code": "3.4", "name": "Восстановление 1 единицы включенного дефекта зубного ряда, непрямым способом, фронтальные зубы", "unit": "1 восстановление", "min": 5500, "max": 5500, "open_ended": false},
-    {"code": "3.5", "name": "То же, непрямым способом, премоляры", "unit": "1 восстановление", "min": 5800, "max": 5800, "open_ended": false},
-    {"code": "3.6", "name": "То же, непрямым способом, моляры", "unit": "1 восстановление", "min": 6000, "max": 6000, "open_ended": false},
+		{
+			"code": "3.0",
+			"name": "Восстановление дефектов зубных рядов",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "3.1",
+			"name": "Восстановление 1 единицы дефекта зубного ряда стекловолоконными материалами и фотополимером прямым способом, фронтальные зубы",
+			"unit": "1 восстановление",
+			"min": 3800,
+			"max": 3800,
+			"open_ended": false
+		},
+		{
+			"code": "3.2",
+			"name": "То же, прямым способом, премоляры",
+			"unit": "1 восстановление",
+			"min": 4000,
+			"max": 4000,
+			"open_ended": false
+		},
+		{
+			"code": "3.3",
+			"name": "То же, прямым способом, моляры",
+			"unit": "1 восстановление",
+			"min": 4500,
+			"max": 4500,
+			"open_ended": false
+		},
+		{
+			"code": "3.4",
+			"name": "Восстановление 1 единицы включенного дефекта зубного ряда, непрямым способом, фронтальные зубы",
+			"unit": "1 восстановление",
+			"min": 5500,
+			"max": 5500,
+			"open_ended": false
+		},
+		{
+			"code": "3.5",
+			"name": "То же, непрямым способом, премоляры",
+			"unit": "1 восстановление",
+			"min": 5800,
+			"max": 5800,
+			"open_ended": false
+		},
+		{
+			"code": "3.6",
+			"name": "То же, непрямым способом, моляры",
+			"unit": "1 восстановление",
+			"min": 6000,
+			"max": 6000,
+			"open_ended": false
+		},
 
-    {"code": "4.0",  "name": "Эндодонтические виды работ", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "4.1",  "name": "Фиксация штифта в корневом канале", "unit": "1 фиксация", "min": 2000, "max": 2000, "open_ended": false},
-    {"code": "4.2",  "name": "Лечение пульпита ампутационным методом без наложения пломбы", "unit": "1 лечение", "min": 1500, "max": 1500, "open_ended": false},
-    {"code": "4.3",  "name": "Лечение периодонтита импрегнационным методом без наложения пломбы", "unit": "1 лечение", "min": 2000, "max": 2000, "open_ended": false},
-    {"code": "4.4",  "name": "Лечение 1 хорошо проходимого корневого канала", "unit": "1 лечение", "min": 2000, "max": 2000, "open_ended": false},
-    {"code": "4.5",  "name": "Лечение 1 корневого канала с применением средств механического и химического расширения", "unit": "1 лечение", "min": 2500, "max": 2500, "open_ended": false},
-    {"code": "4.6",  "name": "Введение лекарственных средств в корневой канал при лечении деструктивных форм периодонтита", "unit": "1 введение", "min": 350, "max": 350, "open_ended": false},
-    {"code": "4.7",  "name": "Подготовка и обтурация 1 корневого канала гуттаперчей", "unit": "1 канал", "min": 1100, "max": 1100, "open_ended": false},
-    {"code": "4.8",  "name": "Распломбировка 1 корневого канала, пломбированного цинк-эвгеноловой пастой", "unit": "1 канал", "min": 1100, "max": 1100, "open_ended": false},
-    {"code": "4.9",  "name": "Распломбировка 1 корневого канала, пломбированного резорцин-формалиновой пастой", "unit": "1 канал", "min": 2200, "max": 2200, "open_ended": false},
-    {"code": "4.10", "name": "Распломбировка 1 корневого канала, пломбированного фосфат-цементом", "unit": "1 канал", "min": 2000, "max": 2000, "open_ended": false},
-    {"code": "4.11", "name": "Извлечение фиксированного инородного тела из 1 корневого канала", "unit": "1 извлечение", "min": 1000, "max": 1000, "open_ended": false},
-    {"code": "4.12", "name": "Распломбировка 1 канала под штифт, культевую вкладку", "unit": "1 канал", "min": 1500, "max": 1500, "open_ended": false},
-    {"code": "4.13", "name": "Лечебная повязка на слизистую оболочку полости рта", "unit": "1 повязка", "min": 250, "max": 250, "open_ended": false},
-    {"code": "4.14", "name": "Медикаментозное лечение пародонтальных карманов (орошение)", "unit": "1 орошение", "min": 350, "max": 350, "open_ended": false},
+		{
+			"code": "4.0",
+			"name": "Эндодонтические виды работ",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "4.1",
+			"name": "Фиксация штифта в корневом канале",
+			"unit": "1 фиксация",
+			"min": 2000,
+			"max": 2000,
+			"open_ended": false
+		},
+		{
+			"code": "4.2",
+			"name": "Лечение пульпита ампутационным методом без наложения пломбы",
+			"unit": "1 лечение",
+			"min": 1500,
+			"max": 1500,
+			"open_ended": false
+		},
+		{
+			"code": "4.3",
+			"name": "Лечение периодонтита импрегнационным методом без наложения пломбы",
+			"unit": "1 лечение",
+			"min": 2000,
+			"max": 2000,
+			"open_ended": false
+		},
+		{
+			"code": "4.4",
+			"name": "Лечение 1 хорошо проходимого корневого канала",
+			"unit": "1 лечение",
+			"min": 2000,
+			"max": 2000,
+			"open_ended": false
+		},
+		{
+			"code": "4.5",
+			"name": "Лечение 1 корневого канала с применением средств механического и химического расширения",
+			"unit": "1 лечение",
+			"min": 2500,
+			"max": 2500,
+			"open_ended": false
+		},
+		{
+			"code": "4.6",
+			"name": "Введение лекарственных средств в корневой канал при лечении деструктивных форм периодонтита",
+			"unit": "1 введение",
+			"min": 350,
+			"max": 350,
+			"open_ended": false
+		},
+		{
+			"code": "4.7",
+			"name": "Подготовка и обтурация 1 корневого канала гуттаперчей",
+			"unit": "1 канал",
+			"min": 1100,
+			"max": 1100,
+			"open_ended": false
+		},
+		{
+			"code": "4.8",
+			"name": "Распломбировка 1 корневого канала, пломбированного цинк-эвгеноловой пастой",
+			"unit": "1 канал",
+			"min": 1100,
+			"max": 1100,
+			"open_ended": false
+		},
+		{
+			"code": "4.9",
+			"name": "Распломбировка 1 корневого канала, пломбированного резорцин-формалиновой пастой",
+			"unit": "1 канал",
+			"min": 2200,
+			"max": 2200,
+			"open_ended": false
+		},
+		{
+			"code": "4.10",
+			"name": "Распломбировка 1 корневого канала, пломбированного фосфат-цементом",
+			"unit": "1 канал",
+			"min": 2000,
+			"max": 2000,
+			"open_ended": false
+		},
+		{
+			"code": "4.11",
+			"name": "Извлечение фиксированного инородного тела из 1 корневого канала",
+			"unit": "1 извлечение",
+			"min": 1000,
+			"max": 1000,
+			"open_ended": false
+		},
+		{
+			"code": "4.12",
+			"name": "Распломбировка 1 канала под штифт, культевую вкладку",
+			"unit": "1 канал",
+			"min": 1500,
+			"max": 1500,
+			"open_ended": false
+		},
+		{
+			"code": "4.13",
+			"name": "Лечебная повязка на слизистую оболочку полости рта",
+			"unit": "1 повязка",
+			"min": 250,
+			"max": 250,
+			"open_ended": false
+		},
+		{
+			"code": "4.14",
+			"name": "Медикаментозное лечение пародонтальных карманов (орошение)",
+			"unit": "1 орошение",
+			"min": 350,
+			"max": 350,
+			"open_ended": false
+		},
 
-    {"code": "5.0",  "name": "Хирургическое лечение", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "5.1",  "name": "Удаление простое", "unit": "1 операция", "min": 3000, "max": 3000, "open_ended": false},
-    {"code": "5.2",  "name": "Удаление сложное", "unit": "1 операция", "min": 7000, "max": null, "open_ended": true},
-    {"code": "5.3",  "name": "Удаление 8-х зубов (зубов мудрости)", "unit": "1 операция", "min": 8000, "max": null, "open_ended": true},
-    {"code": "5.3b", "name": "Удаление ретинированного зуба", "unit": "1 операция", "min": 8000, "max": null, "open_ended": true, "flag": "duplicate_code_in_source"},
-    {"code": "5.4",  "name": "Иссечение капюшона", "unit": "1 операция", "min": 3500, "max": 3500, "open_ended": false},
-    {"code": "5.5",  "name": "Синуслифтинг", "unit": "1 операция", "min": 50000, "max": null, "open_ended": true},
-    {"code": "5.6",  "name": "Имплантат «MIS», «SGS», «NEODENT»", "unit": "1 штука", "min": 42000, "max": 42000, "open_ended": false},
-    {"code": "5.7",  "name": "Имплантат «Straumann» (Швейцария)", "unit": "1 штука", "min": 65000, "max": 65000, "open_ended": false},
-    {"code": "5.8",  "name": "Имплантат «Dentium» (Корея)", "unit": "1 штука", "min": 32000, "max": 32000, "open_ended": false},
-    {"code": "5.9",  "name": "all for 6", "unit": "1 операция", "min": 370000, "max": 370000, "open_ended": false},
-    {"code": "5.10", "name": "all for 4", "unit": "1 операция", "min": 300000, "max": 300000, "open_ended": false},
+		{
+			"code": "5.0",
+			"name": "Хирургическое лечение",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "5.1",
+			"name": "Удаление простое",
+			"unit": "1 операция",
+			"min": 3000,
+			"max": 3000,
+			"open_ended": false
+		},
+		{
+			"code": "5.2",
+			"name": "Удаление сложное",
+			"unit": "1 операция",
+			"min": 7000,
+			"max": null,
+			"open_ended": true
+		},
+		{
+			"code": "5.3",
+			"name": "Удаление 8-х зубов (зубов мудрости)",
+			"unit": "1 операция",
+			"min": 8000,
+			"max": null,
+			"open_ended": true
+		},
+		{
+			"code": "5.3b",
+			"name": "Удаление ретинированного зуба",
+			"unit": "1 операция",
+			"min": 8000,
+			"max": null,
+			"open_ended": true,
+			"flag": "duplicate_code_in_source"
+		},
+		{
+			"code": "5.4",
+			"name": "Иссечение капюшона",
+			"unit": "1 операция",
+			"min": 3500,
+			"max": 3500,
+			"open_ended": false
+		},
+		{
+			"code": "5.5",
+			"name": "Синуслифтинг",
+			"unit": "1 операция",
+			"min": 50000,
+			"max": null,
+			"open_ended": true
+		},
+		{
+			"code": "5.6",
+			"name": "Имплантат «MIS», «SGS», «NEODENT»",
+			"unit": "1 штука",
+			"min": 42000,
+			"max": 42000,
+			"open_ended": false
+		},
+		{
+			"code": "5.7",
+			"name": "Имплантат «Straumann» (Швейцария)",
+			"unit": "1 штука",
+			"min": 65000,
+			"max": 65000,
+			"open_ended": false
+		},
+		{
+			"code": "5.8",
+			"name": "Имплантат «Dentium» (Корея)",
+			"unit": "1 штука",
+			"min": 32000,
+			"max": 32000,
+			"open_ended": false
+		},
+		{
+			"code": "5.9",
+			"name": "all for 6",
+			"unit": "1 операция",
+			"min": 370000,
+			"max": 370000,
+			"open_ended": false
+		},
+		{
+			"code": "5.10",
+			"name": "all for 4",
+			"unit": "1 операция",
+			"min": 300000,
+			"max": 300000,
+			"open_ended": false
+		},
 
-    {"code": "6.0",  "name": "Дополнительные материалы, используемые при лечении кариеса", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "6.1",  "name": "Кальцимол", "unit": "1 доза", "min": 80, "max": 80, "open_ended": false},
-    {"code": "6.2",  "name": "Кальципульпин F", "unit": "1 доза", "min": 10, "max": 10, "open_ended": false},
-    {"code": "7.0",  "name": "Дополнительные материалы при лечении пульпита и периодонтита", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "7.1",  "name": "Крезофен", "unit": "1 доза", "min": 500, "max": 500, "open_ended": false},
-    {"code": "7.2",  "name": "Metapex", "unit": "1 доза", "min": 1000, "max": 1000, "open_ended": false},
-    {"code": "8.0",  "name": "Материалы, применяемые для реставрации зубов", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "8.1",  "name": "Стекловолоконный штифт", "unit": "1 штифт", "min": 2000, "max": 2000, "open_ended": false},
-    {"code": "8.2",  "name": "Титановый штифт «Юниметрик»", "unit": "1 штифт", "min": 1300, "max": 1300, "open_ended": false},
-    {"code": "8.3",  "name": "Стекловолокно «Риббонд»", "unit": "1 штифт", "min": 5000, "max": 5000, "open_ended": false},
-    {"code": "9.0",  "name": "Материалы для окончательной обработки пломб", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "9.1",  "name": "Диски 3М", "unit": "1 диск", "min": 150, "max": 150, "open_ended": false},
-    {"code": "9.2",  "name": "Паста полировочная Призма Клос", "unit": "1 доза", "min": 80, "max": 80, "open_ended": false},
-    {"code": "10.0", "name": "Препараты, применяемые для перевязок", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "10.2", "name": "Альвожил", "unit": "1 доза", "min": 500, "max": 500, "open_ended": false},
-    {"code": "10.3", "name": "Викрил", "unit": "1 упаковка", "min": 1000, "max": 1000, "open_ended": false},
-    {"code": "11.0", "name": "Анестезирующие средства", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "11.1", "name": "Скандонест", "unit": "1 карпула", "min": 1000, "max": 1000, "open_ended": false},
-    {"code": "11.2", "name": "Убистезин", "unit": "1 карпула", "min": 1000, "max": 1000, "open_ended": false},
-    {"code": "11.3", "name": "Ультракаин", "unit": "1 карпула", "min": 1200, "max": 1200, "open_ended": false},
-    {"code": "11.4", "name": "Артикаин Нибса", "unit": "1 карпула", "min": 1000, "max": 1000, "open_ended": false},
+		{
+			"code": "6.0",
+			"name": "Дополнительные материалы, используемые при лечении кариеса",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "6.1",
+			"name": "Кальцимол",
+			"unit": "1 доза",
+			"min": 80,
+			"max": 80,
+			"open_ended": false
+		},
+		{
+			"code": "6.2",
+			"name": "Кальципульпин F",
+			"unit": "1 доза",
+			"min": 10,
+			"max": 10,
+			"open_ended": false
+		},
+		{
+			"code": "7.0",
+			"name": "Дополнительные материалы при лечении пульпита и периодонтита",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "7.1",
+			"name": "Крезофен",
+			"unit": "1 доза",
+			"min": 500,
+			"max": 500,
+			"open_ended": false
+		},
+		{
+			"code": "7.2",
+			"name": "Metapex",
+			"unit": "1 доза",
+			"min": 1000,
+			"max": 1000,
+			"open_ended": false
+		},
+		{
+			"code": "8.0",
+			"name": "Материалы, применяемые для реставрации зубов",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "8.1",
+			"name": "Стекловолоконный штифт",
+			"unit": "1 штифт",
+			"min": 2000,
+			"max": 2000,
+			"open_ended": false
+		},
+		{
+			"code": "8.2",
+			"name": "Титановый штифт «Юниметрик»",
+			"unit": "1 штифт",
+			"min": 1300,
+			"max": 1300,
+			"open_ended": false
+		},
+		{
+			"code": "8.3",
+			"name": "Стекловолокно «Риббонд»",
+			"unit": "1 штифт",
+			"min": 5000,
+			"max": 5000,
+			"open_ended": false
+		},
+		{
+			"code": "9.0",
+			"name": "Материалы для окончательной обработки пломб",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "9.1",
+			"name": "Диски 3М",
+			"unit": "1 диск",
+			"min": 150,
+			"max": 150,
+			"open_ended": false
+		},
+		{
+			"code": "9.2",
+			"name": "Паста полировочная Призма Клос",
+			"unit": "1 доза",
+			"min": 80,
+			"max": 80,
+			"open_ended": false
+		},
+		{
+			"code": "10.0",
+			"name": "Препараты, применяемые для перевязок",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "10.2",
+			"name": "Альвожил",
+			"unit": "1 доза",
+			"min": 500,
+			"max": 500,
+			"open_ended": false
+		},
+		{
+			"code": "10.3",
+			"name": "Викрил",
+			"unit": "1 упаковка",
+			"min": 1000,
+			"max": 1000,
+			"open_ended": false
+		},
+		{
+			"code": "11.0",
+			"name": "Анестезирующие средства",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "11.1",
+			"name": "Скандонест",
+			"unit": "1 карпула",
+			"min": 1000,
+			"max": 1000,
+			"open_ended": false
+		},
+		{
+			"code": "11.2",
+			"name": "Убистезин",
+			"unit": "1 карпула",
+			"min": 1000,
+			"max": 1000,
+			"open_ended": false
+		},
+		{
+			"code": "11.3",
+			"name": "Ультракаин",
+			"unit": "1 карпула",
+			"min": 1200,
+			"max": 1200,
+			"open_ended": false
+		},
+		{
+			"code": "11.4",
+			"name": "Артикаин Нибса",
+			"unit": "1 карпула",
+			"min": 1000,
+			"max": 1000,
+			"open_ended": false
+		},
 
-    {"code": "12.0", "name": "Вкладка", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "12.1", "name": "Вкладка 1-корневая", "unit": "1 единица", "min": 5000, "max": 5000, "open_ended": false},
-    {"code": "12.2", "name": "Вкладка 2-корневая", "unit": "1 единица", "min": 6000, "max": 6000, "open_ended": false},
-    {"code": "12.3", "name": "Вкладка 3-корневая", "unit": "1 единица", "min": 7000, "max": 7000, "open_ended": false},
-    {"code": "13.1", "name": "Коронка цельнолитая", "unit": "1 единица", "min": 13000, "max": 13000, "open_ended": false},
-    {"code": "13.2", "name": "Коронка пластмассовая", "unit": "1 единица", "min": 3500, "max": 3500, "open_ended": false},
-    {"code": "13.3", "name": "Коронка титановая", "unit": "1 единица", "min": 2000, "max": 2000, "open_ended": false, "flag": "suspect_price"},
-    {"code": "13.4", "name": "Безметалловая коронка, метод «импресс»", "unit": "1 единица", "min": 21000, "max": 21000, "open_ended": false},
-    {"code": "13.5", "name": "Безметалловая коронка на цирконии", "unit": "1 единица", "min": 27000, "max": 27000, "open_ended": false},
-    {"code": "14.0", "name": "Съемный протез", "unit": "1 единица", "min": 30000, "max": null, "open_ended": true},
-    {"code": "15.1", "name": "Снятие коронки штампованной", "unit": "1 единица", "min": 500, "max": 500, "open_ended": false},
-    {"code": "15.2", "name": "Снятие коронки литой", "unit": "1 единица", "min": 1000, "max": 1000, "open_ended": false},
-    {"code": "16.0", "name": "Временная коронка", "unit": "1 единица", "min": 3000, "max": 3000, "open_ended": false},
-    {"code": "17.0", "name": "Протезирование на имплантатах", "unit": "1 единица", "min": 25000, "max": 27000, "open_ended": false},
-    {"code": "18.0", "name": "Бюгель", "unit": "1 единица", "min": 35000, "max": 35000, "open_ended": false},
-    {"code": "19.0", "name": "Зуб литой", "unit": "1 единица", "min": 3500, "max": 3500, "open_ended": false},
-    {"code": "20.0", "name": "Фасетка", "unit": "1 единица", "min": 3500, "max": 3500, "open_ended": false},
-    {"code": "21.0", "name": "Металлокерамическая коронка: масса Дуцера", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "21.1", "name": "Металлокерамическая коронка NiCr", "unit": "1 единица", "min": 15000, "max": 15000, "open_ended": false},
-    {"code": "21.2", "name": "Металлокерамическая коронка CoCr", "unit": "1 единица", "min": 15000, "max": 15000, "open_ended": false},
-    {"code": "21.3", "name": "Металлокерамическая коронка «Remanium»", "unit": "1 единица", "min": 16000, "max": 16000, "open_ended": false},
-    {"code": "22.0", "name": "Фиксация коронки", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "22.1", "name": "Фиксация коронки на «Фуджи»", "unit": "1 единица", "min": 1500, "max": 1500, "open_ended": false},
-    {"code": "22.2", "name": "Фиксация коронки на «Кетак»", "unit": "1 единица", "min": 1500, "max": 1500, "open_ended": false},
-    {"code": "22.3", "name": "Фиксация коронки на «Глассин Фикс»", "unit": "1 единица", "min": 1500, "max": 1500, "open_ended": false},
-    {"code": "22.4", "name": "Фиксация коронки на отечественный цемент", "unit": "1 единица", "min": 150, "max": 150, "open_ended": false},
-    {"code": "23.0", "name": "Ретракция десны", "unit": "1 ретракция", "min": 300, "max": 300, "open_ended": false},
-    {"code": "24.0", "name": "Снятие слепков", "unit": null, "min": null, "max": null, "open_ended": false, "flag": "header"},
-    {"code": "24.1", "name": "Снятие слепков «Ипеен»", "unit": "2 слепка", "min": 1500, "max": 1500, "open_ended": false},
-    {"code": "24.2", "name": "Снятие слепков «Спидекс»", "unit": "1 слепок", "min": 4000, "max": 4000, "open_ended": false},
-    {"code": "24.3", "name": "Интраоральное сканирование", "unit": "1 услуга", "min": 3000, "max": null, "open_ended": true}
-  ]
+		{
+			"code": "12.0",
+			"name": "Вкладка",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "12.1",
+			"name": "Вкладка 1-корневая",
+			"unit": "1 единица",
+			"min": 5000,
+			"max": 5000,
+			"open_ended": false
+		},
+		{
+			"code": "12.2",
+			"name": "Вкладка 2-корневая",
+			"unit": "1 единица",
+			"min": 6000,
+			"max": 6000,
+			"open_ended": false
+		},
+		{
+			"code": "12.3",
+			"name": "Вкладка 3-корневая",
+			"unit": "1 единица",
+			"min": 7000,
+			"max": 7000,
+			"open_ended": false
+		},
+		{
+			"code": "13.1",
+			"name": "Коронка цельнолитая",
+			"unit": "1 единица",
+			"min": 13000,
+			"max": 13000,
+			"open_ended": false
+		},
+		{
+			"code": "13.2",
+			"name": "Коронка пластмассовая",
+			"unit": "1 единица",
+			"min": 3500,
+			"max": 3500,
+			"open_ended": false
+		},
+		{
+			"code": "13.3",
+			"name": "Коронка титановая",
+			"unit": "1 единица",
+			"min": 2000,
+			"max": 2000,
+			"open_ended": false,
+			"flag": "suspect_price"
+		},
+		{
+			"code": "13.4",
+			"name": "Безметалловая коронка, метод «импресс»",
+			"unit": "1 единица",
+			"min": 21000,
+			"max": 21000,
+			"open_ended": false
+		},
+		{
+			"code": "13.5",
+			"name": "Безметалловая коронка на цирконии",
+			"unit": "1 единица",
+			"min": 27000,
+			"max": 27000,
+			"open_ended": false
+		},
+		{
+			"code": "14.0",
+			"name": "Съемный протез",
+			"unit": "1 единица",
+			"min": 30000,
+			"max": null,
+			"open_ended": true
+		},
+		{
+			"code": "15.1",
+			"name": "Снятие коронки штампованной",
+			"unit": "1 единица",
+			"min": 500,
+			"max": 500,
+			"open_ended": false
+		},
+		{
+			"code": "15.2",
+			"name": "Снятие коронки литой",
+			"unit": "1 единица",
+			"min": 1000,
+			"max": 1000,
+			"open_ended": false
+		},
+		{
+			"code": "16.0",
+			"name": "Временная коронка",
+			"unit": "1 единица",
+			"min": 3000,
+			"max": 3000,
+			"open_ended": false
+		},
+		{
+			"code": "17.0",
+			"name": "Протезирование на имплантатах",
+			"unit": "1 единица",
+			"min": 25000,
+			"max": 27000,
+			"open_ended": false
+		},
+		{
+			"code": "18.0",
+			"name": "Бюгель",
+			"unit": "1 единица",
+			"min": 35000,
+			"max": 35000,
+			"open_ended": false
+		},
+		{
+			"code": "19.0",
+			"name": "Зуб литой",
+			"unit": "1 единица",
+			"min": 3500,
+			"max": 3500,
+			"open_ended": false
+		},
+		{
+			"code": "20.0",
+			"name": "Фасетка",
+			"unit": "1 единица",
+			"min": 3500,
+			"max": 3500,
+			"open_ended": false
+		},
+		{
+			"code": "21.0",
+			"name": "Металлокерамическая коронка: масса Дуцера",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "21.1",
+			"name": "Металлокерамическая коронка NiCr",
+			"unit": "1 единица",
+			"min": 15000,
+			"max": 15000,
+			"open_ended": false
+		},
+		{
+			"code": "21.2",
+			"name": "Металлокерамическая коронка CoCr",
+			"unit": "1 единица",
+			"min": 15000,
+			"max": 15000,
+			"open_ended": false
+		},
+		{
+			"code": "21.3",
+			"name": "Металлокерамическая коронка «Remanium»",
+			"unit": "1 единица",
+			"min": 16000,
+			"max": 16000,
+			"open_ended": false
+		},
+		{
+			"code": "22.0",
+			"name": "Фиксация коронки",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "22.1",
+			"name": "Фиксация коронки на «Фуджи»",
+			"unit": "1 единица",
+			"min": 1500,
+			"max": 1500,
+			"open_ended": false
+		},
+		{
+			"code": "22.2",
+			"name": "Фиксация коронки на «Кетак»",
+			"unit": "1 единица",
+			"min": 1500,
+			"max": 1500,
+			"open_ended": false
+		},
+		{
+			"code": "22.3",
+			"name": "Фиксация коронки на «Глассин Фикс»",
+			"unit": "1 единица",
+			"min": 1500,
+			"max": 1500,
+			"open_ended": false
+		},
+		{
+			"code": "22.4",
+			"name": "Фиксация коронки на отечественный цемент",
+			"unit": "1 единица",
+			"min": 150,
+			"max": 150,
+			"open_ended": false
+		},
+		{
+			"code": "23.0",
+			"name": "Ретракция десны",
+			"unit": "1 ретракция",
+			"min": 300,
+			"max": 300,
+			"open_ended": false
+		},
+		{
+			"code": "24.0",
+			"name": "Снятие слепков",
+			"unit": null,
+			"min": null,
+			"max": null,
+			"open_ended": false,
+			"flag": "header"
+		},
+		{
+			"code": "24.1",
+			"name": "Снятие слепков «Ипеен»",
+			"unit": "2 слепка",
+			"min": 1500,
+			"max": 1500,
+			"open_ended": false
+		},
+		{
+			"code": "24.2",
+			"name": "Снятие слепков «Спидекс»",
+			"unit": "1 слепок",
+			"min": 4000,
+			"max": 4000,
+			"open_ended": false
+		},
+		{
+			"code": "24.3",
+			"name": "Интраоральное сканирование",
+			"unit": "1 услуга",
+			"min": 3000,
+			"max": null,
+			"open_ended": true
+		}
+	]
 }

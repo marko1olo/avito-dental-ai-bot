@@ -1,32 +1,127 @@
 {
-  "_": "Ортодонтия «Используемая аппаратура». НЕ УТВЕРЖДЕНО — директор: «ортодонтия и брекеты пока еще думаем» (2026-07-29). Бот эти цены не называет.",
-  "status": "draft_not_approved",
-  "prices_may_be_quoted": false,
+	"_": "Ортодонтия «Используемая аппаратура». НЕ УТВЕРЖДЕНО — директор: «ортодонтия и брекеты пока еще думаем» (2026-07-29). Бот эти цены не называет.",
+	"status": "draft_not_approved",
+	"prices_may_be_quoted": false,
 
-  "_CRITICAL": "В исходном документе цифры в скобках — это ЗАКУПКА и ТЕХНИЧЕСКАЯ ЧАСТЬ, то есть себестоимость клиники, а не цена пациента. Брекет-система 6D Sharks: пациенту 250 000 ₽, закупка 30 000 ₽. Если этот документ попадёт в промпт LLM целиком, бот способен назвать пациенту наценку. Поэтому internal_cost_rub физически отделён от patient_price_rub, и в промпт уходит ТОЛЬКО patient_price_rub.",
-  "_prompt_rule": "Сборщик промпта обязан читать это через whitelist полей (code, name, patient_price_rub), а не сериализовать объект целиком. Никогда не подставлять весь JSON в шаблон.",
+	"_CRITICAL": "В исходном документе цифры в скобках — это ЗАКУПКА и ТЕХНИЧЕСКАЯ ЧАСТЬ, то есть себестоимость клиники, а не цена пациента. Брекет-система 6D Sharks: пациенту 250 000 ₽, закупка 30 000 ₽. Если этот документ попадёт в промпт LLM целиком, бот способен назвать пациенту наценку. Поэтому internal_cost_rub физически отделён от patient_price_rub, и в промпт уходит ТОЛЬКО patient_price_rub.",
+	"_prompt_rule": "Сборщик промпта обязан читать это через whitelist полей (code, name, patient_price_rub), а не сериализовать объект целиком. Никогда не подставлять весь JSON в шаблон.",
 
-  "_source_open_question": "На пункте 7 (6D Sharks) от руки: «Замена дуг / ... активация системы ???» — клиника сама ещё не решила, входит ли замена дуг и активация в 250 000 ₽ или считается отдельно. Это и есть причина статуса draft_not_approved.",
+	"_source_open_question": "На пункте 7 (6D Sharks) от руки: «Замена дуг / ... активация системы ???» — клиника сама ещё не решила, входит ли замена дуг и активация в 250 000 ₽ или считается отдельно. Это и есть причина статуса draft_not_approved.",
 
-  "items": [
-    {"n": 1,  "name": "Аппарат Hyrax (нёбный расширитель)",                        "patient_price_rub": 44000,  "internal_cost_rub": 8000},
-    {"n": 2,  "name": "Аппарат Hyrax с лицевой маской",                            "patient_price_rub": 49000,  "internal_cost_rub": 12000, "_cost_detail": "8000 + 4000"},
-    {"n": 3,  "name": "Эластопозиционер / корректор съёмный",                      "patient_price_rub": 15000,  "internal_cost_rub": 6000},
-    {"n": 4,  "name": "Аппарат Гербста (выдвижение нижней челюсти)",               "patient_price_rub": 88000,  "internal_cost_rub": 30000, "surcharge": {"name": "с раскрытием", "patient_price_rub": 12000, "internal_cost_rub": 3000}},
-    {"n": 5,  "name": "Аппарат MARPE (расширение верхней челюсти)",                "patient_price_rub": 95000,  "internal_cost_rub": 30000},
-    {"n": 6,  "name": "Аппарат Carriere Motion (коррекция дистального прикуса)",   "patient_price_rub": 85000,  "internal_cost_rub": null},
-    {"n": 7,  "name": "Брекет-система 6D Sharks",                                  "patient_price_rub": 250000, "internal_cost_rub": 30000, "flag": "arch_change_and_activation_undecided"},
-    {"n": 8,  "name": "Брекет-система в одном сегменте",                           "patient_price_rub": 50000,  "internal_cost_rub": null},
-    {"n": 9,  "name": "Элайнеры",                                                  "patient_price_min_rub": 50000, "patient_price_max_rub": 250000, "internal_cost_rub": null, "_note": "зависит от количества капп, необходимых для перемещения зубов"},
-    {"n": 10, "name": "Разобщающая пластинка",                                     "patient_price_rub": 10000,  "internal_cost_rub": 3000},
-    {"n": 11, "name": "Коррекция с дистрактором SARPE (хирургическое расширение верхней челюсти)", "patient_price_rub": 50000, "internal_cost_rub": 7000},
-    {"n": 12, "name": "Приклеивание кнопки, наложение тяги",                       "patient_price_rub": 15000,  "internal_cost_rub": null},
-    {"n": 13, "name": "Капа ночная",                                               "patient_price_rub": 5000,   "internal_cost_rub": null},
-    {"n": 14, "name": "Изготовление и установка ретейнера",                        "patient_price_rub": 5000,   "internal_cost_rub": null},
-    {"n": 15, "name": "Снятие ретейнера",                                          "patient_price_rub": 5000,   "internal_cost_rub": null},
-    {"n": 16, "name": "Диагностика у детей до 10 лет",                             "patient_price_rub": 5000,   "internal_cost_rub": null},
-    {"n": 17, "name": "Компьютерное моделирование (с 10 лет)",                     "patient_price_rub": 7000,   "internal_cost_rub": 1000, "_note": "в исходнике записано как «+7000р. компьютерное моделирование с 10 лет» в том же пункте 16"}
-  ],
+	"items": [
+		{
+			"n": 1,
+			"name": "Аппарат Hyrax (нёбный расширитель)",
+			"patient_price_rub": 44000,
+			"internal_cost_rub": 8000
+		},
+		{
+			"n": 2,
+			"name": "Аппарат Hyrax с лицевой маской",
+			"patient_price_rub": 49000,
+			"internal_cost_rub": 12000,
+			"_cost_detail": "8000 + 4000"
+		},
+		{
+			"n": 3,
+			"name": "Эластопозиционер / корректор съёмный",
+			"patient_price_rub": 15000,
+			"internal_cost_rub": 6000
+		},
+		{
+			"n": 4,
+			"name": "Аппарат Гербста (выдвижение нижней челюсти)",
+			"patient_price_rub": 88000,
+			"internal_cost_rub": 30000,
+			"surcharge": {
+				"name": "с раскрытием",
+				"patient_price_rub": 12000,
+				"internal_cost_rub": 3000
+			}
+		},
+		{
+			"n": 5,
+			"name": "Аппарат MARPE (расширение верхней челюсти)",
+			"patient_price_rub": 95000,
+			"internal_cost_rub": 30000
+		},
+		{
+			"n": 6,
+			"name": "Аппарат Carriere Motion (коррекция дистального прикуса)",
+			"patient_price_rub": 85000,
+			"internal_cost_rub": null
+		},
+		{
+			"n": 7,
+			"name": "Брекет-система 6D Sharks",
+			"patient_price_rub": 250000,
+			"internal_cost_rub": 30000,
+			"flag": "arch_change_and_activation_undecided"
+		},
+		{
+			"n": 8,
+			"name": "Брекет-система в одном сегменте",
+			"patient_price_rub": 50000,
+			"internal_cost_rub": null
+		},
+		{
+			"n": 9,
+			"name": "Элайнеры",
+			"patient_price_min_rub": 50000,
+			"patient_price_max_rub": 250000,
+			"internal_cost_rub": null,
+			"_note": "зависит от количества капп, необходимых для перемещения зубов"
+		},
+		{
+			"n": 10,
+			"name": "Разобщающая пластинка",
+			"patient_price_rub": 10000,
+			"internal_cost_rub": 3000
+		},
+		{
+			"n": 11,
+			"name": "Коррекция с дистрактором SARPE (хирургическое расширение верхней челюсти)",
+			"patient_price_rub": 50000,
+			"internal_cost_rub": 7000
+		},
+		{
+			"n": 12,
+			"name": "Приклеивание кнопки, наложение тяги",
+			"patient_price_rub": 15000,
+			"internal_cost_rub": null
+		},
+		{
+			"n": 13,
+			"name": "Капа ночная",
+			"patient_price_rub": 5000,
+			"internal_cost_rub": null
+		},
+		{
+			"n": 14,
+			"name": "Изготовление и установка ретейнера",
+			"patient_price_rub": 5000,
+			"internal_cost_rub": null
+		},
+		{
+			"n": 15,
+			"name": "Снятие ретейнера",
+			"patient_price_rub": 5000,
+			"internal_cost_rub": null
+		},
+		{
+			"n": 16,
+			"name": "Диагностика у детей до 10 лет",
+			"patient_price_rub": 5000,
+			"internal_cost_rub": null
+		},
+		{
+			"n": 17,
+			"name": "Компьютерное моделирование (с 10 лет)",
+			"patient_price_rub": 7000,
+			"internal_cost_rub": 1000,
+			"_note": "в исходнике записано как «+7000р. компьютерное моделирование с 10 лет» в том же пункте 16"
+		}
+	],
 
-  "_margin_note_internal": "Разрыв между ценой и закупкой по брекетам 6D Sharks — 250 000 против 30 000. Это внутренняя информация клиники и предмет её коммерческой политики; здесь она сохранена только потому, что была в присланном документе, и только чтобы явно отделить её от того, что видит пациент. В промпт, в лог и в Telegram-черновик она не попадает."
+	"_margin_note_internal": "Разрыв между ценой и закупкой по брекетам 6D Sharks — 250 000 против 30 000. Это внутренняя информация клиники и предмет её коммерческой политики; здесь она сохранена только потому, что была в присланном документе, и только чтобы явно отделить её от того, что видит пациент. В промпт, в лог и в Telegram-черновик она не попадает."
 }
